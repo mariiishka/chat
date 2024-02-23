@@ -29,7 +29,7 @@ const NavManuItem: FC<NavManuItemProps> = ({title, icon, href}) => {
       >
         <div
           className={cn(
-            'transition-[border-radius, background] duration-200 rounded-[50%] hover:bg-purple-400 hover:rounded-[30%] h-11 w-11 bg-slate-700 cursor-pointer',
+            'transition-[border-radius, background] duration-200 rounded-[50%] hover:bg-purple-400 hover:rounded-[30%] h-11 w-11 bg-gray-700 cursor-pointer',
             isActive && 'rounded-[30%] bg-purple-400'
           )}
         />

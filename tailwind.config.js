@@ -17,6 +17,20 @@ module.exports = {
       }
     },
     extend: {
+      colors: {
+        gray: {
+          950: '#111214',
+          900: '#1e1f22',
+          800: '#232428',
+          700: '#2b2d31',
+          600: '#313338',
+          500: '#36373d',
+          400: '#3a3c42', // hover
+          300: '#3d3e45', // active
+          200: '#80848e', // text
+          100: '#dbdee1' // hover/active text
+        }
+      },
       keyframes: {
         'accordion-down': {
           from: {height: '0'},

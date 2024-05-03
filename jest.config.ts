@@ -13,6 +13,7 @@ const config: Config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
+  modulePathIgnorePatterns: ['<rootDir>/tests/'],
   testEnvironment: 'jsdom' // jest-environment-jsdom
   // Add more setup options before each test is run
 };

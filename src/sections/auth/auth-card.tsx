@@ -14,7 +14,7 @@ const AuthCard: FC<Props> = ({children, title, subtitle, actions}) => {
           <h1 className="text-xl font-semibold text-gray-100">{title}</h1>
           {!!subtitle && <p className="text-sm">{subtitle}</p>}
         </div>
-        <div className="px-4 py-8">{children}</div>
+        <div className="px-4 py-8 flex flex-col items-center">{children}</div>
       </div>
       <div className="flex justify-center items-center gap-2">{actions}</div>
     </>

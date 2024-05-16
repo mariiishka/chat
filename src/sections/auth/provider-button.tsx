@@ -4,7 +4,7 @@ import {type FC} from 'react';
 import {Github} from 'lucide-react';
 import {type ClientSafeProvider} from 'next-auth/react';
 
-import {Button} from '@/components/ui/button';
+import {Button} from '@/shared/ui/button';
 import {useOAuthSignIn} from '@/hooks/auth/user-oath-sign-in';
 
 type Props = {

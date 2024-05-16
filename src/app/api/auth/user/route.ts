@@ -1,7 +1,7 @@
 import {type NextRequest, NextResponse} from 'next/server';
 import {hash} from 'bcrypt';
 
-import prisma from '@/lib/db';
+import prisma from '@/shared/lib/db/db';
 
 export async function POST(req: NextRequest) {
   const credentials = await req.json();

@@ -1,3 +1,4 @@
+import {ContractEditor} from '@/widgets/contract-editor';
 import {type Metadata} from 'next';
 
 export const metadata: Metadata = {
@@ -5,5 +6,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <>page home</>;
+  return (
+    <>
+      page home
+      <ContractEditor />
+    </>
+  );
 }

@@ -1,12 +1,12 @@
 'use client';
 
-import React, {memo, type FC} from 'react';
+import React, {type FC} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {usePathname} from 'next/navigation';
 
-import {cn} from '@/lib/utils';
-import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip';
+import {cn} from '@/shared/ui/utils';
+import {Tooltip, TooltipContent, TooltipTrigger} from '../../shared/ui/tooltip';
 
 type NavManuItemProps = {
   title: string;
@@ -56,4 +56,4 @@ const NavManuItem: FC<NavManuItemProps> = ({title, icon, href, onClick}) => {
   );
 };
 
-export default memo(NavManuItem);
+export default NavManuItem;

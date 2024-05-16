@@ -8,7 +8,7 @@ import {Button} from '../../shared/ui/button';
 
 const NavMenu: FC = () => {
   return (
-    <nav className="py-[6px] bg-gray-900">
+    <nav className="py-[6px] bg-slate-900">
       <ul className="flex flex-col gap-2">
         <NavManuItem href="/" title="me" />
       </ul>

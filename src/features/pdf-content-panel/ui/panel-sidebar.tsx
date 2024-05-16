@@ -12,7 +12,6 @@ export const PanelSidebar = ({
   onPagePreviewClick: (index: number) => void;
 }) => {
   const pdfUrl = usePDFEditorStore((state) => state.pdfUrl);
-  const pdfPagesMap = usePDFEditorStore((state) => state.pdfPagesMap);
   const {images, isLoading} = usePDFPreviewImages(pdfUrl);
 
   if (!panelSidebarOpen) {
@@ -20,7 +19,7 @@ export const PanelSidebar = ({
   }
 
   return (
-    <div className="no-scrollbar bg-[#F9FAFB] flex w-[186px] flex-col gap-4 overflow-auto border-r border-[#E5E7EB] p-4">
+    <div className="border-r border-gray-300 no-scrollbar overflow-y-auto max-h-[100%] h-[100%] bg-gray-100 flex w-[186px] flex-col gap-4 overflow-auto p-4">
       {images &&
         images.map((image, i) => (
           <PanelSidebarImage

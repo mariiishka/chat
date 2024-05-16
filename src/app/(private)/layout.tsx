@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <main className="dark flex flex-col text-white h-[100vh] bg-gray-900">
-      <div className="bg-gray-900 h-6" />
+    <main className="dark flex flex-col text-white h-[100vh] bg-slate-900">
+      <div className="bg-slate-900 h-6" />
       <div className="flex h-full max-h-[calc(100vh-48px)]">
         <div className="flex-0">
           <NavMenu />
         </div>
-        <div className="max-h-[100%] overflow-y-auto flex-0 text-gray-200 w-full rounded-md bg-gray-600">
+        <div className="max-h-[100%] overflow-y-auto flex-0 text-slate-200 w-full rounded-md bg-slate-600">
           {children}
         </div>
       </div>

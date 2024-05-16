@@ -8,7 +8,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      page home
       <ContractEditor />
     </>
   );

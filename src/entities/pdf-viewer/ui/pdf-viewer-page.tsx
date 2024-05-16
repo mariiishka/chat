@@ -1,17 +1,22 @@
 import {type ReactNode, forwardRef} from 'react';
 import {Page, type PageProps} from 'react-pdf';
 
+import {cn} from '@/shared/ui/utils';
+
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
-export type PDFViewerPageProps = {children?: ReactNode} & PageProps;
+export type PDFViewerPageProps = {
+  children?: ReactNode;
+  wrapperClassName?: string;
+} & PageProps;
 
 export const PDFViewerPage = forwardRef<HTMLDivElement, PDFViewerPageProps>(
-  ({children, ...props}, ref) => {
+  ({children, className, wrapperClassName, ...props}, ref) => {
     return (
-      <div ref={ref} className="relative w-fit">
+      <div ref={ref} className={cn('relative w-fit', wrapperClassName)}>
         <Page
-          className="border border-solid border-gray-400"
+          className={cn('border border-solid border-gray-300', className)}
           renderAnnotationLayer={true}
           {...props}
         />

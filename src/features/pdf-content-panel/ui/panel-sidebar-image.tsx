@@ -14,7 +14,7 @@ export const PanelSidebarImage = ({
 }) => {
   return (
     <div className="flex gap-[14px]">
-      <p className="text-[14px] font-semibold">{pageNum}</p>
+      <p className="text-[14px] text-gray-900 font-semibold">{pageNum}</p>
       <div
         className="relative flex h-[168px] w-[132px] cursor-pointer items-center justify-center"
         onClick={onClick}
@@ -26,8 +26,8 @@ export const PanelSidebarImage = ({
             className={cn(
               'rounded-[6px] border border-solid transition-[border] duration-200',
               active
-                ? 'border-[2px] border-[#9CA3AF]'
-                : 'border-[#D1D5DB] hover:border-[#9CA3AF]'
+                ? 'border-[2px] border-pink-400'
+                : 'border-gray-300 hover:border-pink-300'
             )}
             alt={`page-${pageNum}`}
           />

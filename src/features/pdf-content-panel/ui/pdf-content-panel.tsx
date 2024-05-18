@@ -5,12 +5,15 @@ import {PanelLeft} from 'lucide-react';
 
 import {Button} from '@/shared/ui/button';
 import {type DocContent} from '@/shared/lib/document';
-import {PDFViewer, PDFViewerPage} from '@/entities/pdf-viewer';
+import {PDFViewer} from '@/entities/pdf-viewer';
+import {IntersectionObserverWrapper} from '@/entities/intersection-observer';
 import {usePDFEditorStore} from '@/entities/pdf-editor';
 import {PanelSidebar} from './panel-sidebar';
+import {PDFContentPage} from './pdf-content-page';
 
 export const PDFContentPanel = ({Field}: {Field: FC<DocContent>}) => {
-  const [panelSidebarOpen, setPanelSidebarOpen] = useState(false);
+  const [pageLoadSuccess, setPageLoadSuccess] = useState(false);
+  const [panelSidebarOpen, setPanelSidebarOpen] = useState(true);
   const [pages, setPages] = useState<{
     currentPage: number;
     pagesCount: null | number;
@@ -18,6 +21,7 @@ export const PDFContentPanel = ({Field}: {Field: FC<DocContent>}) => {
 
   const pdfUrl = usePDFEditorStore((state) => state.pdfUrl);
   const content = usePDFEditorStore((state) => state.content);
+  const pagesRef = usePDFEditorStore((state) => state.pdfPagesRef);
   const addToPDFPagesMap = usePDFEditorStore((state) => state.addToPDFPagesMap);
 
   const switchPanelSidebarOpen = () => {
@@ -28,14 +32,33 @@ export const PDFContentPanel = ({Field}: {Field: FC<DocContent>}) => {
     setPages((state) => ({...state, pagesCount: numPages}));
   };
 
+  const handlePagePreviewClick = (pageIndex: number) => {
+    setPages((state) => ({...state, currentPage: pageIndex + 1}));
+    pagesRef.current?.get(pageIndex)?.scrollIntoView({block: 'start'});
+  };
+
+  const handlePageLoadSuccess = () => {
+    setPageLoadSuccess(true);
+  };
+
+  const handlePageIntersecting = (
+    isIntersecting: boolean,
+    pageNumber: number
+  ) => {
+    if (isIntersecting && pageLoadSuccess) {
+      setPages((state) => ({
+        ...state,
+        currentPage: pageNumber
+      }));
+    }
+  };
+
   return (
     <div className="relative max-h-[100%] flex w-full overflow-x-auto overflow-y-hidden rounded bg-gray-100">
       <div className="overflow-y-auto w-full overflow-x-auto">
         <div className="absolute left-0 top-0 bottom-0 overflox-y-hidden z-[20]">
           <PanelSidebar
-            onPagePreviewClick={(index) => {
-              setPages((state) => ({...state, currentPage: index + 1}));
-            }}
+            onPagePreviewClick={handlePagePreviewClick}
             activePage={pages.currentPage}
             panelSidebarOpen={panelSidebarOpen}
           />
@@ -59,18 +82,28 @@ export const PDFContentPanel = ({Field}: {Field: FC<DocContent>}) => {
         >
           {pages.pagesCount &&
             Array.from({length: pages.pagesCount}).map((_, pageIndex) => (
-              <PDFViewerPage
+              <IntersectionObserverWrapper
+                onChange={(isIntersecing) =>
+                  handlePageIntersecting(isIntersecing, pageIndex + 1)
+                }
                 key={pageIndex}
-                pageIndex={pageIndex}
-                wrapperClassName="mx-auto mb-4"
-                ref={(node) => addToPDFPagesMap(pageIndex, node)}
               >
-                {content
-                  .filter((field) => field.position.page === pageIndex + 1)
-                  .map((field) => (
-                    <Field key={field.id} {...field} />
-                  ))}
-              </PDFViewerPage>
+                <PDFContentPage
+                  pageNumber={pageIndex + 1}
+                  ref={(node) => {
+                    addToPDFPagesMap(pageIndex, node);
+                  }}
+                  onLoadSuccess={() =>
+                    pageIndex === 0 && handlePageLoadSuccess()
+                  }
+                >
+                  {content
+                    .filter((field) => field.position.page === pageIndex + 1)
+                    .map((field) => (
+                      <Field key={field.id} {...field} />
+                    ))}
+                </PDFContentPage>
+              </IntersectionObserverWrapper>
             ))}
         </PDFViewer>
       </div>

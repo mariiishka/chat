@@ -1,6 +1,7 @@
 import {usePDFEditorStore} from '@/entities/pdf-editor';
 import {usePDFPreviewImages} from '../vm/use-pdf-preview-images';
 import {PanelSidebarImage} from './panel-sidebar-image';
+import {PanelSidebarSkeleton} from './panel-sidebar-skeleton';
 
 export const PanelSidebar = ({
   panelSidebarOpen,
@@ -19,8 +20,10 @@ export const PanelSidebar = ({
   }
 
   return (
-    <div className="border-r border-gray-300 no-scrollbar overflow-y-auto max-h-[100%] h-[100%] bg-gray-100 flex w-[186px] flex-col gap-4 overflow-auto p-4">
-      {images &&
+    <div className="border-r border-gray-300 no-scrollbar max-h-[100%] h-[100%] bg-gray-100 flex w-[186px] flex-col gap-4 overflow-auto p-4">
+      {isLoading && <PanelSidebarSkeleton />}
+      {!!images?.length &&
+        !isLoading &&
         images.map((image, i) => (
           <PanelSidebarImage
             key={`image-${i}`}

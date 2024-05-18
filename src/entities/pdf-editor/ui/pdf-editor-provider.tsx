@@ -24,8 +24,14 @@ export const PDFEditorStoreProvider = ({
   pdfUrl: string;
 }) => {
   const storeRef = useRef<StoreApi<PDFEditorStore>>();
+  const pdfPagesRef = useRef<Map<number, HTMLDivElement>>(new Map());
   if (!storeRef.current) {
-    storeRef.current = createPDFEditorStore({content, signers, pdfUrl});
+    storeRef.current = createPDFEditorStore({
+      content,
+      signers,
+      pdfUrl,
+      pdfPagesRef
+    });
   }
 
   return (

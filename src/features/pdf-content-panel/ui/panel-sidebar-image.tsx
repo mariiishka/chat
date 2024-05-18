@@ -1,4 +1,6 @@
+import {useEffect, useRef} from 'react';
 import Image from 'next/image';
+
 import {cn} from '@/shared/ui/utils';
 
 export const PanelSidebarImage = ({
@@ -12,8 +14,16 @@ export const PanelSidebarImage = ({
   image: string;
   onClick?: () => void;
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (active) {
+      ref.current?.scrollIntoView({block: 'nearest'});
+    }
+  }, [active]);
+
   return (
-    <div className="flex gap-[14px]">
+    <div ref={ref} className="flex gap-[14px]">
       <p className="text-[14px] text-gray-900 font-semibold">{pageNum}</p>
       <div
         className="relative flex h-[168px] w-[132px] cursor-pointer items-center justify-center"
